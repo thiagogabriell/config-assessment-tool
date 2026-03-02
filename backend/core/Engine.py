@@ -55,19 +55,20 @@ class Engine:
         self.car = car
 
         if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
-            # running as executable bundle
-            path = sys._MEIPASS
+            bundle_dir = sys._MEIPASS
+            path = os.path.dirname(sys.executable)
             logging.info(f"Running as executable bundle, using {path} as root directory")
         else:
             # running from source/docker
             # cd to config-assessment-tool root directory
             path = os.path.realpath(f"{__file__}/../../..")
+            bundle_dir = path
             logging.info(f"Running from source/docker, using {path} as root directory")
 
         os.chdir(path)
 
-        logging.info(f'\n{open(f"backend/resources/img/splash.txt").read()}')
-        self.codebaseVersion = open(f"VERSION").read()
+        logging.info(f'\n{open(os.path.join(bundle_dir, "backend", "resources", "img", "splash.txt")).read()}')
+        self.codebaseVersion = open(os.path.join(bundle_dir, "VERSION")).read()
         logging.info(f"Running Software Version: {self.codebaseVersion}")
 
 
