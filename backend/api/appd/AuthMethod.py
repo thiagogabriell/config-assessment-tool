@@ -64,7 +64,7 @@ class AuthMethod():
             self.session = aiohttp.ClientSession(connector=connector,
                                                  trust_env=True,
                                                  cookie_jar=cookie_jar,
-                                                 timeout = aiohttp.ClientTimeout(total=1800))
+                                                 timeout = aiohttp.ClientTimeout(total=18000))
             self.controller = AppdController(
                 base_url=connection_url,
                 client=AiohttpClient(session=self.session),
@@ -371,7 +371,7 @@ async def main():
     client_session = aiohttp.ClientSession(connector=connector,
                                            trust_env=True,
                                            cookie_jar=cookie_jar,
-                                           timeout=aiohttp.ClientTimeout(total=1800))
+                                           timeout=aiohttp.ClientTimeout(total=18000))
     controller = AppdController(
         base_url=connection_url,
         client=AiohttpClient(session=client_session),
